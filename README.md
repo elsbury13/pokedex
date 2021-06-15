@@ -4,6 +4,11 @@
 
 In the project directory, you can run:
 
+### `npm install`
+
+to ensure all deps are downloaded.
+If `node_modules` exists, remove it with `rm -rf node_modules` and then run `npm install`.
+
 ### `npm start`
 
 Runs the app in the development mode.<br>
