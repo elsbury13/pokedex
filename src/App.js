@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import logo from './logo.svg';
 import './App.css';
 
 var divStyle = { float: 'right' };
@@ -47,26 +46,36 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get(`https://pokeapi.co/api/v2/pokemon/1`)
-      .then(response => {
-        const pokemons = response.data;
-        this.setState({
-          pokemons,
-          loading: false
-        });
-      })
-      .catch(function (error) {
-        if (error.response) {
-          // The request was made, but the server responded with a status code
-          // that falls out of the range of 2xx
-          // console.log(error.reposnse);
-          document.getElementById('loading').innerHTML = "Sorry this pokemon cannot be found... Please try again"
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          console.log('Error', error.message);
-        }
-        console.log(error.config);
-      });
+    const fetchData = async () => {
+      try {
+        await axios.get(`https://pokeapi.co/api/v2/pokemon/1`)
+        .then(response => {
+            console.log(response.data)
+            console.log('here')
+            const pokemons = response.data;
+            this.setState({
+              pokemons,
+              loading: false
+            });
+          })
+          .catch(function (error) {
+            if (error.response) {
+              // The request was made, but the server responded with a status code
+              // that falls out of the range of 2xx
+              // console.log(error.reposnse);
+              document.getElementById('loading').innerHTML = "Sorry this pokemon cannot be found... Please try again"
+            } else {
+              // Something happened in setting up the request that triggered an Error
+              console.log('Error', error.message);
+            }
+            console.log(error.config);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
   }
 
   render () {
